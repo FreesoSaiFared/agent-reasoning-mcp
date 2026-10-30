@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { resolve } from 'node:path';
 import {
   loadProjectConfig,
   getPentadHmacSecret,
@@ -167,7 +168,7 @@ describe('Config & Tool Error Handling Coverage', () => {
       'File path must be a non-empty string'
     );
     expect(() => validatePath('/etc/shadow', { projectRoot: '/tmp' })).toThrow('Access denied');
-    expect(validatePath('test.json', { projectRoot: '/tmp' })).toBe('/tmp/test.json');
+    expect(validatePath('test.json', { projectRoot: '/tmp' })).toBe(resolve('/tmp', 'test.json'));
 
     delete process.env.PENTAD_HMAC_SECRET;
     testDb.close();
